@@ -9,6 +9,9 @@ import misc.Vector2i;
 
 import java.util.ArrayList;
 
+import static app.Colors.CIRCLE_COLOR;
+import static app.Colors.POINT_COLOR;
+
 /**
  * Класс задачи
  */
@@ -18,9 +21,8 @@ public class Task {
      */
     public static final String TASK_TEXT = """
             ПОСТАНОВКА ЗАДАЧИ:
-            Заданы два множества точек в вещественном
-            пространстве. Требуется построить пересечение
-            и разность этих множеств""";
+            На плоскости задано множество точек. Найти такие две окружности, что их центры находятся в точках заданного множества, внутри этих окружностей находятся хотя бы половина из всех точек заданного множества, и больший из двух радиусов минимален.    
+            """;
     /**
      * Вещественная система координат задачи
      */
@@ -30,9 +32,14 @@ public class Task {
      */
     private final ArrayList<Point> points;
     /**
+     * Список окружностей
+     */
+    private final ArrayList<Circle> circles;
+    /**
      * Размер точки
      */
     private static final int POINT_SIZE = 3;
+
 
     /**
      * Задача
@@ -40,9 +47,10 @@ public class Task {
      * @param ownCS  СК задачи
      * @param points массив точек
      */
-    public Task(CoordinateSystem2d ownCS, ArrayList<Point> points) {
+    public Task(CoordinateSystem2d ownCS, ArrayList<Point> points, ArrayList<Circle> circles) {
         this.ownCS = ownCS;
         this.points = points;
+        this.circles = circles;
     }
 
     /**
@@ -56,12 +64,12 @@ public class Task {
         // создаём перо
         try (var paint = new Paint()) {
             for (Point p : points) {
-                // получаем цвет точки
-                paint.setColor(p.getColor());
-                // y-координату разворачиваем, потому что у СК окна ось y направлена вниз,
-                // а в классическом представлении - вверх
-                Vector2i windowPos = windowCS.getCoords(p.pos.x, p.pos.y, ownCS);
-                canvas.drawRect(Rect.makeXYWH(windowPos.x - POINT_SIZE, windowPos.y - POINT_SIZE, POINT_SIZE * 2, POINT_SIZE * 2), paint);
+                paint.setColor(POINT_COLOR);
+                p.paint(canvas, windowCS, ownCS, paint);
+            }
+            for (Circle c : circles) {
+                paint.setColor(CIRCLE_COLOR);
+                c.paint(canvas, windowCS, ownCS, paint);
             }
         }
         canvas.restore();

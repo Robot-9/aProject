@@ -1,5 +1,6 @@
 package panels;
 
+import app.Circle;
 import app.Point;
 import app.Task;
 import io.github.humbleui.jwm.Event;
@@ -51,12 +52,13 @@ public class PanelRendering extends GridPanel {
         ArrayList<Point> points = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
             // получаем случайное множество
-            Point.PointSet pointSet = ThreadLocalRandom.current().nextBoolean() ?
-                    Point.PointSet.FIRST_SET : Point.PointSet.SECOND_SET;
-            // добавляем точку в случайном месте ОСК в указанное множество
-            points.add(new Point(cs.getRandomCoords(), pointSet));
+            points.add(new Point(cs.getRandomCoords()));
         }
-        task = new Task(cs, points);
+        ArrayList<Circle> circles = new ArrayList<>();
+        for (int i = 0; i < 10; ++i) {
+            circles.add(new Circle(cs.getRandomCoords(), (double)70));
+        }
+        task = new Task(cs, points, circles);
 
     }
 
