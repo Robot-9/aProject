@@ -78,9 +78,4 @@ public class Point {
     public int hashCode() {
         return Objects.hash(pos);
     }
-
-    void paint(Canvas canvas, CoordinateSystem2i windowCS, CoordinateSystem2d ownCS, Paint paint) {
-        Vector2i windowPos = windowCS.getCoords(pos.x, pos.y, ownCS);
-        canvas.drawRect(Rect.makeXYWH(windowPos.x - POINT_SIZE, windowPos.y - POINT_SIZE, POINT_SIZE * 2, POINT_SIZE * 2), paint);
-    }
 }

@@ -59,17 +59,42 @@ public class Task {
      * @param canvas   область рисования
      * @param windowCS СК окна
      */
-    public void paint(Canvas canvas, CoordinateSystem2i windowCS) {
+    public void renderTask(Canvas canvas, CoordinateSystem2i windowCS) {
         canvas.save();
         // создаём перо
         try (var paint = new Paint()) {
             for (Point p : points) {
                 paint.setColor(POINT_COLOR);
-                p.paint(canvas, windowCS, ownCS, paint);
+                Vector2i windowPos = windowCS.getCoords(p.pos.x, p.pos.y, ownCS);
+                canvas.drawRect(Rect.makeXYWH(windowPos.x - POINT_SIZE, windowPos.y - POINT_SIZE, POINT_SIZE * 2, POINT_SIZE * 2), paint);
             }
             for (Circle c : circles) {
                 paint.setColor(CIRCLE_COLOR);
-                c.paint(canvas, windowCS, ownCS, paint);
+                Vector2i center = windowCS.getCoords(c.pos.x, c.pos.y, ownCS);
+//              Vector2d center = new Vector2d(pos.x + windowCS.getMin().x, pos.y + windowCS.getMin().y);
+                double cf1 = (double) 900.0 / windowCS.getSize().x, cf2 = (double) 900.0 / windowCS.getSize().y;
+                float radX = (float) (c.rad / cf1);// / windowCS.getSize().x * ownCS.getSize().x);
+                // радиус вдоль оси y
+                float radY = (float) (c.rad / cf2);// / windowCS.getSize().y * ownCS.getSize().y);
+                // кол-во отсчётов цикла
+                int loopCnt = 60;
+                int loopCnt2 = loopCnt / 2;
+                // создаём массив координат опорных точек
+                float[] points = new float[loopCnt * 4];
+                // запускаем цикл
+                for (int i = 0; i < loopCnt; i++) {
+                    // x координата первой точки
+                    points[i * 4] = (float) (center.x + radX * Math.cos(Math.PI / loopCnt2 * i));
+                    // y координата первой точки
+                    points[i * 4 + 1] = (float) (center.y + radY * Math.sin(Math.PI / loopCnt2 * i));
+
+                    // x координата второй точки
+                    points[i * 4 + 2] = (float) (center.x + radX * Math.cos(Math.PI / loopCnt2 * (i + 1)));
+                    // y координата второй точки
+                    points[i * 4 + 3] = (float) (center.y + radY * Math.sin(Math.PI / loopCnt2 * (i + 1)));
+                }
+                // рисуем линии
+                canvas.drawLines(points, paint);
             }
         }
         canvas.restore();
