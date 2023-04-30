@@ -1,10 +1,12 @@
 package app;
 
+import io.github.humbleui.jwm.MouseButton;
 import io.github.humbleui.skija.Canvas;
 import io.github.humbleui.skija.Paint;
 import io.github.humbleui.skija.Rect;
 import misc.CoordinateSystem2d;
 import misc.CoordinateSystem2i;
+import misc.Vector2d;
 import misc.Vector2i;
 
 import java.util.ArrayList;
@@ -21,7 +23,7 @@ public class Task {
      */
     public static final String TASK_TEXT = """
             ПОСТАНОВКА ЗАДАЧИ:
-            На плоскости задано множество точек. Найти такие две окружности, что их центры находятся в точках заданного множества, внутри этих окружностей находятся хотя бы половина из всех точек заданного множества, и больший из двух радиусов минимален.    
+            На плоскости задано множество точек. Найти такие две окружности, что их центры находятся в точках заданного множества, внутри этих окружностей находятся хотя бы половина из всех точек заданного множества, и больший из двух радиусов минимален.   
             """;
     /**
      * Вещественная система координат задачи
@@ -39,6 +41,10 @@ public class Task {
      * Размер точки
      */
     private static final int POINT_SIZE = 3;
+    /**
+     * последняя СК окна
+     */
+    protected CoordinateSystem2i lastWindowCS;
 
 
     /**
@@ -98,5 +104,35 @@ public class Task {
             }
         }
         canvas.restore();
+        // Сохраняем последнюю СК
+        lastWindowCS = windowCS;
+    }
+
+    /**
+     * Клик мыши по пространству задачи
+     *
+     * @param pos         положение мыши
+     * @param mouseButton кнопка мыши
+     */
+    public void click(Vector2i pos, MouseButton mouseButton) {
+        if (lastWindowCS == null) return;
+        // получаем положение на экране
+        Vector2d taskPos = ownCS.getCoords(pos, lastWindowCS);
+        if (mouseButton.equals(MouseButton.PRIMARY)) {
+            addPoint(taskPos);
+            // если правая, то во второе
+        } else if (mouseButton.equals(MouseButton.SECONDARY)) {
+            addPoint(taskPos);
+        }
+    }
+
+    /**
+     * Добавить точку
+     *
+     * @param pos      положение
+     */
+    public void addPoint(Vector2d pos) {
+        Point newPoint = new Point(pos);
+        points.add(newPoint);
     }
 }
