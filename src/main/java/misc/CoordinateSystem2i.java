@@ -88,21 +88,6 @@ public class CoordinateSystem2i {
         );
     }
 
-//    /**
-//     * Получить координаты вектора в текущей системе координат
-//     *
-//     * @param x                координата X вектора в другой системе координат
-//     * @param y                координата Y вектора в другой системе координат
-//     * @param coordinateSystem система координат, в которой заданы координаты вектора
-//     * @return координаты вектора в текущей системе координат
-//     */
-//    public Vector2d getCoords2(double x, double y, CoordinateSystem2d coordinateSystem) {
-//        return new Vector2d(
-//                ((x - coordinateSystem.getMin().x) * (size.x - 1) / coordinateSystem.getSize().x + min.x),
-//                ((y - coordinateSystem.getMin().y) * (size.y - 1) / coordinateSystem.getSize().y + min.y)
-//        );
-//    }
-
     /**
      * Получить координаты вектора в текущей системе координат
      *

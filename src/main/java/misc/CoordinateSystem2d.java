@@ -62,7 +62,7 @@ public class CoordinateSystem2d {
     /**
      * Конструктор ограниченной двумерной вещественной системы координат
      *
-     * @param cs
+     * @param cs целочисленная система координат
      */
     public CoordinateSystem2d(CoordinateSystem2i cs) {
         set(cs.getMin().x, cs.getMin().y, cs.getSize().x, cs.getSize().y);
@@ -170,9 +170,9 @@ public class CoordinateSystem2d {
 
     /**
      * Получить размер из одной системы координат в текущую
-     * @param lenx
-     * @param leny
-     * @param coordinateSystem
+     * @param lenx длина по x в другой системе координат
+     * @param leny длина по y в другой системе координат
+     * @param coordinateSystem другая система координат
      */
     public Vector2d getLens(double lenx, double leny, CoordinateSystem2d coordinateSystem) {
         return new Vector2d(
