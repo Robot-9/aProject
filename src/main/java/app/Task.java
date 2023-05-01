@@ -206,6 +206,10 @@ public class Task {
      */
     public void solve() {
         circles.clear();
+        if (points.size() < 2) {
+            PanelLog.warning("Количество точек слишком мало, должно быть хотя бы 2!!!");
+            return;
+        }
         double rl = 0, rr = 20000;
         int ans1 = 0, ans2 = 0;
         double rad = 0;
@@ -241,7 +245,7 @@ public class Task {
         circles.add(a1);
         a1 = new Circle(points.get(ans2).pos, rad);
         circles.add(a1);
-        PanelLog.success("Задача решена + \n + Circles: " + circles.toString() + "\n" + circles.toString());
+        PanelLog.success("Задача решена\nCircles: \n" + circles.get(0).toString() + "\n" + circles.get(1).toString());
     }
 
     /**
