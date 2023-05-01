@@ -1,9 +1,13 @@
 package app;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import io.github.humbleui.jwm.MouseButton;
 import io.github.humbleui.skija.Canvas;
 import io.github.humbleui.skija.Paint;
 import io.github.humbleui.skija.Rect;
+import lombok.Getter;
 import misc.CoordinateSystem2d;
 import misc.CoordinateSystem2i;
 import misc.Vector2d;
@@ -19,6 +23,7 @@ import static app.Colors.POINT_COLOR;
 /**
  * Класс задачи
  */
+@JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, property = "@class")
 public class Task {
     /**
      * Текст задачи
@@ -35,10 +40,12 @@ public class Task {
     /**
      * Вещественная система координат задачи
      */
+    @Getter
     private final CoordinateSystem2d ownCS;
     /**
      * Список точек
      */
+    @Getter
     private final ArrayList<Point> points;
     /**
      * Список окружностей
@@ -60,10 +67,23 @@ public class Task {
      * @param ownCS  СК задачи
      * @param points массив точек
      */
-    public Task(CoordinateSystem2d ownCS, ArrayList<Point> points, ArrayList<Circle> circles) {
+    public Task( CoordinateSystem2d ownCS,  ArrayList<Point> points, ArrayList<Circle> circles) {
         this.ownCS = ownCS;
         this.points = points;
         this.circles = circles;
+    }
+
+    /**
+     * Задача
+     *
+     * @param ownCS  СК задачи
+     * @param points массив точек
+     */
+    @JsonCreator
+    public Task(@JsonProperty("ownCS") CoordinateSystem2d ownCS, @JsonProperty("points") ArrayList<Point> points) {
+        this.ownCS = ownCS;
+        this.points = points;
+        this.circles = new ArrayList<>();
     }
 
     /**

@@ -1,5 +1,8 @@
 package app;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import io.github.humbleui.skija.Canvas;
 import io.github.humbleui.skija.Paint;
 import io.github.humbleui.skija.Rect;
@@ -30,7 +33,8 @@ public class Point {
      *
      * @param pos положение точки
      */
-    public Point(Vector2d pos) {
+    @JsonCreator
+    public Point(@JsonProperty("pos") Vector2d pos) {
         this.pos = pos;
         this.isin = false;
     }
@@ -49,6 +53,7 @@ public class Point {
      *
      * @return положение
      */
+    @JsonIgnore
     public boolean getIsin() {
         return isin;
     }
