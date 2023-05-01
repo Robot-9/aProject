@@ -194,6 +194,7 @@ public class Task {
      */
     public void clear() {
         points.clear();
+        PanelLog.info("clear");
     }
 
     /**
