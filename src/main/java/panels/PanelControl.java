@@ -249,3 +249,4 @@ public class PanelControl extends GridPanel {
         solve.text = "Решить";
     }
 }
+
