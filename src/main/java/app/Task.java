@@ -16,8 +16,7 @@ import panels.PanelLog;
 
 import java.util.ArrayList;
 
-import static app.Colors.CIRCLE_COLOR;
-import static app.Colors.POINT_COLOR;
+import static app.Colors.*;
 
 /**
  * Класс задачи
@@ -96,7 +95,11 @@ public class Task {
         // создаём перо
         try (var paint = new Paint()) {
             for (Point p : points) {
-                paint.setColor(POINT_COLOR);
+                if (p.isIn) {
+                    paint.setColor(POINT_COLOR_IN);
+                } else {
+                    paint.setColor(POINT_COLOR);
+                }
                 Vector2i windowPos = windowCS.getCoords(p.pos.x, p.pos.y, ownCS);
                 canvas.drawRect(Rect.makeXYWH(windowPos.x - POINT_SIZE, windowPos.y - POINT_SIZE, POINT_SIZE * 2, POINT_SIZE * 2), paint);
             }
@@ -202,6 +205,11 @@ public class Task {
      * Решить задачу
      */
     public void solve() {
+        for (int i = 0; i < points.size(); ++i) {
+            Point p = points.get(i);
+            p.isIn = false;
+            points.set(i, p);
+        }
         circles.clear();
         if (points.size() < 2) {
             PanelLog.warning("Количество точек слишком мало, должно быть хотя бы 2!!!");
@@ -236,6 +244,13 @@ public class Task {
                 rr = m;
             } else {
                 rl = m;
+            }
+        }
+        for (int i = 0; i < points.size(); ++i) {
+            Point p = points.get(i);
+            if (p.dist(points.get(ans1).pos) <= rad || p.dist(points.get(ans2).pos) <= rad) {
+                p.isIn = true;
+                points.set(i, p);
             }
         }
         Circle a1 = new Circle(points.get(ans1).pos, rad);

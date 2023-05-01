@@ -31,6 +31,10 @@ public class Colors {
      */
     public static final int POINT_COLOR = Misc.getColor(255, 0, 255, 0);
     /**
+     * цвет точек
+     */
+    public static final int POINT_COLOR_IN = Misc.getColor(255, 0, 0, 255);
+    /**
      * цвет окружностей
      */
     public static final int CIRCLE_COLOR = Misc.getColor(255, 100, 100, 0);

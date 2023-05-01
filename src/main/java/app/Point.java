@@ -23,6 +23,10 @@ public class Point {
      * Размер точки
      */
     private static final int POINT_SIZE = 3;
+    /**
+     * Лежит ли точка в окружности
+     */
+    public boolean isIn;
 
     /**
      * Конструктор точки
@@ -32,6 +36,7 @@ public class Point {
     @JsonCreator
     public Point(@JsonProperty("pos") Vector2d pos) {
         this.pos = pos;
+        this.isIn = false;
     }
 
     /**
