@@ -83,6 +83,13 @@ public class PanelControl extends GridPanel {
                 6, 7, 4, 2, 2, 1, "0.0", true,
                 FIELD_TEXT_COLOR, true);
         inputs.add(yField);
+        Label cntLabel = new Label(window, false, backgroundColor, PANEL_PADDING,
+                6, 7, 0, 4, 1, 1, "Кол-во", true, true);
+        labels.add(cntLabel);
+        Input cntField = InputFactory.getInput(window, false, FIELD_BACKGROUND_COLOR, PANEL_PADDING,
+                6, 7, 1, 4, 2, 1, "5", true,
+                FIELD_TEXT_COLOR, true);
+        inputs.add(cntField);
         buttons = new ArrayList<>();
         Button addPoint = new Button(
                 window, false, backgroundColor, PANEL_PADDING,
@@ -100,6 +107,18 @@ public class PanelControl extends GridPanel {
                 );
         });
         buttons.add(addPoint);
+        Button addPoints = new Button(
+                window, false, backgroundColor, PANEL_PADDING,
+                6, 7, 3, 4, 3, 1, "Добавить\nслучайные точки",
+                true, true);
+        addPoints.setOnClick(() -> {
+            // если числа введены верно
+            if (!cntField.hasValidIntValue()) {
+                PanelLog.warning("кол-во точек указано неверно");
+            } else
+                PanelRendering.task.addRandomPoints(cntField.intValue());
+        });
+        buttons.add(addPoints);
     }
 
     /**
@@ -121,7 +140,7 @@ public class PanelControl extends GridPanel {
                     button.checkOver(lastWindowCS.getRelativePos(new Vector2i(ee)));
             }
         } else if (e instanceof EventMouseButton ee) {
-            if (!lastInside)
+            if (!lastInside || !ee.isPressed())
                 return;
 
             Vector2i relPos = lastWindowCS.getRelativePos(lastMove);
