@@ -104,7 +104,7 @@ public class Input extends GridPanel {
                     // смещаем область рисования
                     canvas.translate(line.getWidth(), 0);
                     // рисуем его
-                    canvas.drawRect(Rect.makeXYWH(0, metrics.getAscent(), 2, metrics.getHeight()), paint);
+                    canvas.drawRect(Rect.makeXYWH(0, metrics.getAscent(), 2     , metrics.getHeight()), paint);
                 }
             }
             // восстанавливаем область рисования

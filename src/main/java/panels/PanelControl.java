@@ -1,14 +1,15 @@
 package panels;
 
+import app.Point;
 import app.Task;
+
 import java.util.ArrayList;
-import controls.Input;
-import controls.InputFactory;
-import controls.Label;
-import controls.MultiLineLabel;
+
+import controls.*;
 import io.github.humbleui.jwm.*;
 import io.github.humbleui.skija.Canvas;
 import misc.CoordinateSystem2i;
+import misc.Vector2d;
 import misc.Vector2i;
 
 import java.util.List;
@@ -21,6 +22,10 @@ import static app.Colors.FIELD_TEXT_COLOR;
  * Панель управления
  */
 public class PanelControl extends GridPanel {
+    /**
+     * Кнопки
+     */
+    public List<Button> buttons;
     /**
      * Текст задания
      */
@@ -78,7 +83,23 @@ public class PanelControl extends GridPanel {
                 6, 7, 4, 2, 2, 1, "0.0", true,
                 FIELD_TEXT_COLOR, true);
         inputs.add(yField);
-        inputs.add(yField);
+        buttons = new ArrayList<>();
+        Button addPoint = new Button(
+                window, false, backgroundColor, PANEL_PADDING,
+                6, 7, 0, 3, 6, 1, "Добавить точку",
+                true, true);
+        addPoint.setOnClick(() -> {
+            // если числа введены верно
+            if (!xField.hasValidDoubleValue()) {
+                PanelLog.warning("X координата введена неверно");
+            } else if (!yField.hasValidDoubleValue())
+                PanelLog.warning("Y координата введена неверно");
+            else
+                PanelRendering.task.addPoint(
+                        new Vector2d(xField.doubleValue(), yField.doubleValue())
+                );
+        });
+        buttons.add(addPoint);
     }
 
     /**
@@ -95,13 +116,19 @@ public class PanelControl extends GridPanel {
             for (Input input : inputs)
                 input.accept(ee);
 
-            // событие нажатия мыши
+            for (Button button : buttons) {
+                if (lastWindowCS != null)
+                    button.checkOver(lastWindowCS.getRelativePos(new Vector2i(ee)));
+            }
         } else if (e instanceof EventMouseButton ee) {
             if (!lastInside)
                 return;
 
             Vector2i relPos = lastWindowCS.getRelativePos(lastMove);
 
+            for (Button button : buttons) {
+                button.click(relPos);
+            }
             // перебираем поля ввода
             for (Input input : inputs) {
                 // если клик внутри этого поля
@@ -142,6 +169,11 @@ public class PanelControl extends GridPanel {
     @Override
     public void paintImpl(Canvas canvas, CoordinateSystem2i windowCS) {
         task.paint(canvas, windowCS);
+
+        // выводим кнопки
+        for (Button button : buttons) {
+            button.paint(canvas, windowCS);
+        }
         // выводим поля ввода
         for (Input input : inputs) {
             input.paint(canvas, windowCS);
