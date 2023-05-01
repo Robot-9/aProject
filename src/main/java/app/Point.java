@@ -23,10 +23,6 @@ public class Point {
      * Размер точки
      */
     private static final int POINT_SIZE = 3;
-    /**
-     * Принадлежит ли какой-то из окружностей
-     */
-    public final boolean isin;
 
     /**
      * Конструктор точки
@@ -36,7 +32,6 @@ public class Point {
     @JsonCreator
     public Point(@JsonProperty("pos") Vector2d pos) {
         this.pos = pos;
-        this.isin = false;
     }
 
     /**
@@ -48,15 +43,6 @@ public class Point {
         return pos;
     }
 
-    /**
-     * Получить положение
-     *
-     * @return положение
-     */
-    @JsonIgnore
-    public boolean getIsin() {
-        return isin;
-    }
 
     /**
      * Строковое представление объекта
@@ -66,8 +52,7 @@ public class Point {
     @Override
     public String toString() {
         return "Point{" +
-                ", pos=" + pos +
-                " isin=" + isin + '}';
+                ", pos=" + pos + '}';
     }
 
     /**
@@ -85,6 +70,13 @@ public class Point {
         // приводим переданный в параметрах объект к текущему классу
         Point point = (Point) o;
         return Objects.equals(pos, point.pos);
+    }
+
+    /**
+     * Расстояние до точки
+     */
+    public double dist(Vector2d pos2) {
+        return Math.sqrt((pos.x - pos2.x) * (pos.x - pos2.x) + (pos.y - pos2.y) * (pos.y - pos2.y));
     }
 
     /**

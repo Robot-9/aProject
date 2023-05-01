@@ -59,6 +59,14 @@ public class CoordinateSystem2d {
         this(min.x, min.y, max.x - min.x, max.y - min.y);
     }
 
+    /**
+     * Конструктор ограниченной двумерной вещественной системы координат
+     *
+     * @param cs
+     */
+    public CoordinateSystem2d(CoordinateSystem2i cs) {
+        set(cs.getMin().x, cs.getMin().y, cs.getSize().x, cs.getSize().y);
+    }
 
     /**
      * Задать новые границы
@@ -158,6 +166,18 @@ public class CoordinateSystem2d {
                 (x - coordinateSystem.getMin().x) * size.x / (coordinateSystem.getSize().x - 1) + min.x,
                 (y - coordinateSystem.getMin().y) * size.y / (coordinateSystem.getSize().y - 1) + min.y
         );
+    }
+
+    /**
+     * Получить размер из одной системы координат в текущую
+     * @param lenx
+     * @param leny
+     * @param coordinateSystem
+     */
+    public Vector2d getLens(double lenx, double leny, CoordinateSystem2d coordinateSystem) {
+        return new Vector2d(
+                lenx * size.x / coordinateSystem.getSize().x,
+                leny * size.y / coordinateSystem.getSize().y);
     }
 
     /**

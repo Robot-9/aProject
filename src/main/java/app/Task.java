@@ -103,12 +103,15 @@ public class Task {
             }
             for (Circle c : circles) {
                 paint.setColor(CIRCLE_COLOR);
-                Vector2i center = windowCS.getCoords(c.pos.x, c.pos.y, ownCS);
+                CoordinateSystem2d windowCSd = new CoordinateSystem2d(windowCS);
+                Vector2d center = windowCSd.getCoords(c.pos.x, c.pos.y, ownCS);
 //              Vector2d center = new Vector2d(pos.x + windowCS.getMin().x, pos.y + windowCS.getMin().y);
-                double cf1 = (double) 900.0 / windowCS.getSize().x, cf2 = (double) 900.0 / windowCS.getSize().y;
-                float radX = (float) (c.rad / cf1);// / windowCS.getSize().x * ownCS.getSize().x);
+//                double cf1 = (double) 900.0 / windowCS.getSize().x, cf2 = (double) 900.0 / windowCS.getSize().y;
+                Vector2d rd = windowCSd.getLens(c.rad, c.rad, ownCS);
+                double cf1 = rd.x, cf2 = rd.y;
+                float radX = (float) (cf1);// / windowCS.getSize().x * ownCS.getSize().x);
                 // радиус вдоль оси y
-                float radY = (float) (c.rad / cf2);// / windowCS.getSize().y * ownCS.getSize().y);
+                float radY = (float) (cf2);// / windowCS.getSize().y * ownCS.getSize().y);
                 // кол-во отсчётов цикла
                 int loopCnt = 60;
                 int loopCnt2 = loopCnt / 2;
@@ -201,7 +204,44 @@ public class Task {
      * Решить задачу
      */
     public void solve() {
-        PanelLog.warning("Вызван метод solve()\n Пока что решения нет");
+        circles.clear();
+        double rl = 0, rr = 20000;
+        int ans1 = 0, ans2 = 0;
+        double rad = 0;
+        for (int i = 0; i < 200; ++i) {
+            double m = (rl + rr) / 2.0;
+            int maxcnt = 0;
+            int s1 = 0, s2 = 0;
+            for (int j = 0; j < points.size(); ++j) {
+                for (int k = j; k < points.size(); ++k) {
+                    int cnt = 0;
+                    for (Point p : points) {
+                        if (p.dist(points.get(j).pos) <= m || p.dist(points.get(k).pos) <= m) {
+                            ++cnt;
+                        }
+                    }
+                    if (cnt > maxcnt) {
+                        maxcnt = cnt;
+                        s1 = j;
+                        s2 = k;
+                    }
+                }
+            }
+            if (maxcnt * 2 >= points.size()) {
+                ans1 = s1;
+                ans2 = s2;
+                rad = m;
+                rr = m;
+            } else {
+                rl = m;
+            }
+        }
+        Circle a1 = new Circle(points.get(ans1).pos, rad);
+        circles.add(a1);
+        a1 = new Circle(points.get(ans2).pos, rad);
+        circles.add(a1);
+        PanelLog.success("Задача решена + \n + Circles: " + circles.toString() + "\n" + circles.toString());
+//        PanelLog.warning("Вызван метод solve()\n Пока что решения нет");
     }
 
     /**

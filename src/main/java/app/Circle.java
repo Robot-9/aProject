@@ -46,5 +46,13 @@ public class Circle {
         return rad;
     }
 
-
+    /**
+     * Строковое представление объекта
+     *
+     * @return строковое представление объекта
+     */
+    @Override
+    public String toString() {
+        return "Circle{" + ", pos: " + pos.x + ", " + pos.y + " rad: " + rad + "}";
+    }
 }
