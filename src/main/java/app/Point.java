@@ -26,6 +26,7 @@ public class Point {
     /**
      * Лежит ли точка в окружности
      */
+    @JsonIgnore
     public boolean isIn;
 
     /**
