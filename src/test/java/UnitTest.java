@@ -16,7 +16,7 @@ public class UnitTest {
     /**
      * Тест
      *
-     * @param points        список точек
+     * @param points список точек
      */
     private static void test(ArrayList<Point> points) {
         Task task = new Task(new CoordinateSystem2d(10, 10, 20, 20), points);
@@ -50,14 +50,6 @@ public class UnitTest {
         points.add(new Point(new Vector2d(1, 2)));
         points.add(new Point(new Vector2d(1, 2)));
 
-        Set<Vector2d> crossedCoords = new HashSet<>();
-        crossedCoords.add(new Vector2d(1, 2));
-        crossedCoords.add(new Vector2d(-1, 1));
-
-        Set<Vector2d> singleCoords = new HashSet<>();
-        singleCoords.add(new Vector2d(1, 1));
-        singleCoords.add(new Vector2d(2, 1));
-
         test(points);
     }
 
@@ -73,14 +65,6 @@ public class UnitTest {
         points.add(new Point(new Vector2d(2, 2)));
         points.add(new Point(new Vector2d(1, 2)));
 
-        Set<Vector2d> crossedCoords = new HashSet<>();
-
-        Set<Vector2d> singleCoords = new HashSet<>();
-        singleCoords.add(new Vector2d(1, 1));
-        singleCoords.add(new Vector2d(2, 1));
-        singleCoords.add(new Vector2d(2, 2));
-        singleCoords.add(new Vector2d(1, 2));
-
         test(points);
     }
 
@@ -95,15 +79,6 @@ public class UnitTest {
         points.add(new Point(new Vector2d(2, 1)));
         points.add(new Point(new Vector2d(2, 2)));
         points.add(new Point(new Vector2d(1, 2)));
-
-        Set<Vector2d> crossedCoords = new HashSet<>();
-
-        Set<Vector2d> singleCoords = new HashSet<>();
-        singleCoords.add(new Vector2d(1, 1));
-        singleCoords.add(new Vector2d(2, 1));
-        singleCoords.add(new Vector2d(2, 2));
-        singleCoords.add(new Vector2d(1, 2));
-
         test(points);
     }
 }
