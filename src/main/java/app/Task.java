@@ -15,7 +15,6 @@ import misc.Vector2i;
 import panels.PanelLog;
 
 import java.util.ArrayList;
-import java.util.concurrent.ThreadLocalRandom;
 
 import static app.Colors.CIRCLE_COLOR;
 import static app.Colors.POINT_COLOR;
@@ -105,8 +104,6 @@ public class Task {
                 paint.setColor(CIRCLE_COLOR);
                 CoordinateSystem2d windowCSd = new CoordinateSystem2d(windowCS);
                 Vector2d center = windowCSd.getCoords(c.pos.x, c.pos.y, ownCS);
-//              Vector2d center = new Vector2d(pos.x + windowCS.getMin().x, pos.y + windowCS.getMin().y);
-//                double cf1 = (double) 900.0 / windowCS.getSize().x, cf2 = (double) 900.0 / windowCS.getSize().y;
                 Vector2d rd = windowCSd.getLens(c.rad, c.rad, ownCS);
                 double cf1 = rd.x, cf2 = rd.y;
                 float radX = (float) (cf1);// / windowCS.getSize().x * ownCS.getSize().x);
@@ -215,7 +212,7 @@ public class Task {
         double rad = 0;
         for (int i = 0; i < 200; ++i) {
             double m = (rl + rr) / 2.0;
-            int maxcnt = 0;
+            int maxCnt = 0;
             int s1 = 0, s2 = 0;
             for (int j = 0; j < points.size(); ++j) {
                 for (int k = j; k < points.size(); ++k) {
@@ -225,14 +222,14 @@ public class Task {
                             ++cnt;
                         }
                     }
-                    if (cnt > maxcnt) {
-                        maxcnt = cnt;
+                    if (cnt > maxCnt) {
+                        maxCnt = cnt;
                         s1 = j;
                         s2 = k;
                     }
                 }
             }
-            if (maxcnt * 2 >= points.size()) {
+            if (maxCnt * 2 >= points.size()) {
                 ans1 = s1;
                 ans2 = s2;
                 rad = m;
