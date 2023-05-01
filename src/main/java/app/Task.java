@@ -66,7 +66,7 @@ public class Task {
      * @param ownCS  СК задачи
      * @param points массив точек
      */
-    public Task( CoordinateSystem2d ownCS,  ArrayList<Point> points, ArrayList<Circle> circles) {
+    public Task(CoordinateSystem2d ownCS, ArrayList<Point> points, ArrayList<Circle> circles) {
         this.ownCS = ownCS;
         this.points = points;
         this.circles = circles;
@@ -242,7 +242,8 @@ public class Task {
         circles.add(a1);
         a1 = new Circle(points.get(ans2).pos, rad);
         circles.add(a1);
-        PanelLog.success("Задача решена\nCircles: \n" + circles.get(0).toString() + "\n" + circles.get(1).toString());
+        PanelLog.success("Задача решена\nCircles: \n" + circles.get(0).toString() +
+                "\n" + circles.get(1).toString());
     }
 
     /**
