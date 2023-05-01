@@ -241,7 +241,6 @@ public class Task {
         a1 = new Circle(points.get(ans2).pos, rad);
         circles.add(a1);
         PanelLog.success("Задача решена + \n + Circles: " + circles.toString() + "\n" + circles.toString());
-//        PanelLog.warning("Вызван метод solve()\n Пока что решения нет");
     }
 
     /**
