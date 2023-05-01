@@ -197,6 +197,7 @@ public class Task {
      */
     public void clear() {
         points.clear();
+        circles.clear();
         PanelLog.info("clear");
     }
 
