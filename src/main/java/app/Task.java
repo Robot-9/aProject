@@ -8,6 +8,7 @@ import misc.CoordinateSystem2d;
 import misc.CoordinateSystem2i;
 import misc.Vector2d;
 import misc.Vector2i;
+import panels.PanelLog;
 
 import java.util.ArrayList;
 
@@ -23,7 +24,12 @@ public class Task {
      */
     public static final String TASK_TEXT = """
             ПОСТАНОВКА ЗАДАЧИ:
-            На плоскости задано множество точек. Найти такие две окружности, что их центры находятся в точках заданного множества, внутри этих окружностей находятся хотя бы половина из всех точек заданного множества, и больший из двух радиусов минимален.   
+           На плоскости задано множество точек.\040
+           Найти такие две окружности, что их центры\040
+           находятся в точках заданного множества, внутри\040
+           этих окружностей находятся хотя бы половина из\040
+           всех точек заданного множества, и больший из\040
+           двух радиусов минимален.\040\040\040
             """;
     /**
      * Вещественная система координат задачи
@@ -134,5 +140,6 @@ public class Task {
     public void addPoint(Vector2d pos) {
         Point newPoint = new Point(pos);
         points.add(newPoint);
+        PanelLog.info("point add: " + newPoint);
     }
 }

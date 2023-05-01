@@ -20,6 +20,10 @@ public class Point {
      * Размер точки
      */
     private static final int POINT_SIZE = 3;
+    /**
+     * Принадлежит ли какой-то из окружностей
+     */
+    public final boolean isin;
 
     /**
      * Конструктор точки
@@ -28,6 +32,7 @@ public class Point {
      */
     public Point(Vector2d pos) {
         this.pos = pos;
+        this.isin = false;
     }
 
     /**
@@ -39,6 +44,14 @@ public class Point {
         return pos;
     }
 
+    /**
+     * Получить положение
+     *
+     * @return положение
+     */
+    public boolean getIsin() {
+        return isin;
+    }
 
     /**
      * Строковое представление объекта
@@ -49,7 +62,7 @@ public class Point {
     public String toString() {
         return "Point{" +
                 ", pos=" + pos +
-                '}';
+                " isin=" + isin + '}';
     }
 
     /**

@@ -7,6 +7,10 @@ import misc.Misc;
  */
 public class Colors {
     /**
+     * Цвет текста
+     */
+    public static final int MULTILINE_TEXT_COLOR = Misc.getColor(64, 255, 255, 255);
+    /**
      * цвет фона
      */
     public static final int APP_BACKGROUND_COLOR = Misc.getColor(255, 38, 70, 83);
@@ -26,6 +30,14 @@ public class Colors {
      * цвет окружностей
      */
     public static final int CIRCLE_COLOR = Misc.getColor(255, 100, 100, 0);
+    /**
+     * Цвет подложки поля ввода
+     */
+    public static final int FIELD_BACKGROUND_COLOR = Misc.getColor(255, 255, 255, 255);
+    /**
+     * Цвет текста
+     */
+    public static final int FIELD_TEXT_COLOR = Misc.getColor(255, 0, 0, 0);
 
     /**
      * Запрещённый конструктор
