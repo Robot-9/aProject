@@ -79,6 +79,24 @@ public class UnitTest {
         points.add(new Point(new Vector2d(2, 1)));
         points.add(new Point(new Vector2d(2, 2)));
         points.add(new Point(new Vector2d(1, 2)));
+
+        test(points);
+    }
+
+    /**
+     * Четвертый тест
+     */
+    @Test
+    public void test4() {
+        ArrayList<Point> points = new ArrayList<>();
+
+        points.add(new Point(new Vector2d(1, 1)));
+        points.add(new Point(new Vector2d(2, 1)));
+        points.add(new Point(new Vector2d(2, 2)));
+        points.add(new Point(new Vector2d(1, 2)));
+        points.add(new Point(new Vector2d(10, 2)));
+        points.add(new Point(new Vector2d(1, 5)));
+
         test(points);
     }
 }
